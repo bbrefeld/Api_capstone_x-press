@@ -66,10 +66,10 @@ issuesRouter.post('/', (req,res,next) => {
 });
 
 
-issuesRouter.param('issueId', (req,res,next,issueId) => {
+issuesRouter.param('issuesId', (req,res,next,issuesId) => {
 
   /* callback of param */
-  db.get(`SELECT * FROM Series WHERE id = ${issueId}`, function(err, issueById) {
+  db.get(`SELECT * FROM Series WHERE id = ${issuesId}`, function(err, issueById) {
 
     /* callback of db.get */
     if (err) {
@@ -84,7 +84,7 @@ issuesRouter.param('issueId', (req,res,next,issueId) => {
 });
 
 
-issuesRouter.put('/', (req,res,next) => {
+issuesRouter.put('/:issuesId', (req,res,next) => {
 
   /* callback of post */
   if (!req.body.issues.name || !req.body.issues.issueNumber || !req.body.issues.publicationDate || !req.body.issues.artistId) {
@@ -128,7 +128,7 @@ issuesRouter.put('/', (req,res,next) => {
   };
 });
 
-issuesRouter.delete("/", (req,res,next) => {
+issuesRouter.delete("/:issuesId", (req,res,next) => {
 
   /* callback of delete */
   db.run(`DELETE FROM Issue WHERE id = ${req.params.issueId}`, function(err) {
