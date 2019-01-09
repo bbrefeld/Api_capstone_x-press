@@ -1,11 +1,12 @@
 const express = require('express');
 const sqlite3 = require('sqlite3');
-const seriesRouter = express.Router();
 
-const issuesRouter = require("./issues")
-seriesRouter.use("/:seriesId/issues", issuesRouter);
+const seriesRouter = express.Router();
+//const issuesRouter = require("./issues")
 
 const db = new sqlite3.Database(process.env.TEST_DATABASE || './database.sqlite')
+
+//seriesRouter.use("/:seriesId/issues", issuesRouter);
 
 seriesRouter.get('/', (req,res,next) => {
 
@@ -95,7 +96,7 @@ seriesRouter.put('/:seriesId', (req,res,next) => {
       if (err) {
         next(err);
       } else {
-        db.get(`SELECT * FROM series WHERE id = ${req.params.seriesId}`, function(err, series) {
+        db.get(`SELECT * FROM series WHERE id = ${req.series.id}`, function(err, series) {
 
           /* callback of db.get */
           if (err) {
